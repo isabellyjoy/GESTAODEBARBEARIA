@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarberManager Pro - Sistema de Gestão Premium</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen">
+        <div class="login-card glass">
+            <div class="logo-container" style="justify-content: center;">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">BARBER<span style="color: white;">PRO</span></div>
+            </div>
+            <h2>Bem-vindo</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Usuário</label>
+                    <input type="text" id="username" placeholder="Seu usuário" value="admin">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="password" placeholder="Sua senha" value="admin123">
+                </div>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+            <p style="margin-top: 20px; color: var(--text-gray); font-size: 0.8rem;">
+                Esqueceu a senha? <a href="#" style="color: var(--primary-gold);">Clique aqui</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Main System Container (Hidden initially) -->
+    <div id="main-container" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">BARBER<span style="color: white;">PRO</span></div>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-view="dashboard">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-view="appointments">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Agendamentos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-view="clients">
+                        <i class="fas fa-users"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-view="services">
+                        <i class="fas fa-cut"></i>
+                        <span>Serviços</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-view="barbers">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Barbeiros</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-view="finance">
+                        <i class="fas fa-wallet"></i>
+                        <span>Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-view="reports">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-link" data-view="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+                <a href="#" class="nav-link" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Header -->
+        <header>
+            <div class="search-bar">
+                <i class="fas fa-search" style="color: var(--text-gray);"></i>
+                <input type="text" placeholder="Pesquisar...">
+            </div>
+            <div class="header-right">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge"></div>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info" style="text-align: right; margin-right: 10px;">
+                        <div style="font-weight: 600; font-size: 0.9rem;">Carlos Silva</div>
+                        <div style="color: var(--text-gray); font-size: 0.75rem;">Administrador</div>
+                    </div>
+                    <div class="user-avatar">CS</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content">
+            <!-- Content will be injected here via JS -->
+            <section id="dashboard-view" class="view-section active">
+                <h2 class="mb-20">Dashboard</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card glass">
+                        <div class="stat-header">
+                            <span>Total de Clientes</span>
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-value">1,284</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>12% este mês</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-header">
+                            <span>Agendamentos Hoje</span>
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="stat-value">24</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>8% vs ontem</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-header">
+                            <span>Faturamento Mensal</span>
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-value">R$ 12.450</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>15% vs mês ant.</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-header">
+                            <span>Ticket Médio</span>
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="stat-value">R$ 85,00</div>
+                        <div class="stat-trend trend-down">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>2% vs mês ant.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="chart-container glass">
+                        <h3 class="mb-20">Desempenho de Vendas</h3>
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                    <div class="recent-activity glass">
+                        <h3 class="mb-20">Últimos Atendimentos</h3>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <div class="activity-icon"><i class="fas fa-cut"></i></div>
+                                <div class="activity-info">
+                                    <h4>Ricardo Oliveira</h4>
+                                    <p>Corte Degradê - há 10 min</p>
+                                </div>
+                                <div style="margin-left: auto; color: var(--primary-gold); font-weight: 600;">R$ 45</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon"><i class="fas fa-user-tie"></i></div>
+                                <div class="activity-info">
+                                    <h4>Marcos Souza</h4>
+                                    <p>Barba Completa - há 25 min</p>
+                                </div>
+                                <div style="margin-left: auto; color: var(--primary-gold); font-weight: 600;">R$ 35</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon"><i class="fas fa-magic"></i></div>
+                                <div class="activity-info">
+                                    <h4>André Lima</h4>
+                                    <p>Corte + Barba - há 45 min</p>
+                                </div>
+                                <div style="margin-left: auto; color: var(--primary-gold); font-weight: 600;">R$ 70</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon"><i class="fas fa-cut"></i></div>
+                                <div class="activity-info">
+                                    <h4>Felipe Santos</h4>
+                                    <p>Corte Infantil - há 1 hora</p>
+                                </div>
+                                <div style="margin-left: auto; color: var(--primary-gold); font-weight: 600;">R$ 40</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="appointments-view" class="view-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Agendamentos</h2>
+                    <button class="btn-add"><i class="fas fa-plus"></i> Novo Agendamento</button>
+                </div>
+                <div class="glass" style="padding: 20px;">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Serviço</th>
+                                    <th>Barbeiro</th>
+                                    <th>Data/Hora</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointments-table">
+                                <!-- Data will be populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="clients-view" class="view-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Gestão de Clientes</h2>
+                    <button class="btn-add"><i class="fas fa-plus"></i> Novo Cliente</button>
+                </div>
+                <div class="glass" style="padding: 20px;">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Telefone</th>
+                                    <th>Última Visita</th>
+                                    <th>Total Gasto</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clients-table">
+                                <!-- Data will be populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services-view" class="view-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Serviços</h2>
+                    <button class="btn-add"><i class="fas fa-plus"></i> Novo Serviço</button>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card glass">
+                        <div class="stat-header"><span>Corte Masculino</span></div>
+                        <div class="stat-value">R$ 45</div>
+                        <div class="stat-trend">30 min • Ativo</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-header"><span>Barba</span></div>
+                        <div class="stat-value">R$ 35</div>
+                        <div class="stat-trend">20 min • Ativo</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-header"><span>Corte + Barba</span></div>
+                        <div class="stat-value">R$ 70</div>
+                        <div class="stat-trend">50 min • Ativo</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="barbers-view" class="view-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Barbeiros</h2>
+                    <button class="btn-add"><i class="fas fa-plus"></i> Novo Barbeiro</button>
+                </div>
+                <div class="stats-grid" id="barbers-grid">
+                    <!-- Populated via JS -->
+                </div>
+            </section>
+
+            <section id="finance-view" class="view-section">
+                <h2 class="mb-20">Financeiro</h2>
+                <div class="stats-grid">
+                    <div class="stat-card glass">
+                        <div class="stat-header"><span>Receita Total</span></div>
+                        <div class="stat-value">R$ 15.200</div>
+                        <div class="stat-trend trend-up">Mês Atual</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-header"><span>Despesas</span></div>
+                        <div class="stat-value">R$ 4.500</div>
+                        <div class="stat-trend trend-down">Mês Atual</div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-header"><span>Lucro Líquido</span></div>
+                        <div class="stat-value" style="color: #4caf50;">R$ 10.700</div>
+                        <div class="stat-trend trend-up">70% Margem</div>
+                    </div>
+                </div>
+                <div class="glass" style="padding: 20px;">
+                    <h3 class="mb-20">Fluxo de Caixa</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Categoria</th>
+                                    <th>Data</th>
+                                    <th>Valor</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Aluguel Salão</td>
+                                    <td>Infraestrutura</td>
+                                    <td>05/06/2026</td>
+                                    <td>R$ 2.500,00</td>
+                                    <td><span style="color: #f44336;">Saída</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Produtos de Cabelo</td>
+                                    <td>Suprimentos</td>
+                                    <td>08/06/2026</td>
+                                    <td>R$ 800,00</td>
+                                    <td><span style="color: #f44336;">Saída</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Serviços de Barbearia</td>
+                                    <td>Vendas</td>
+                                    <td>10/06/2026</td>
+                                    <td>R$ 1.250,00</td>
+                                    <td><span style="color: #4caf50;">Entrada</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="reports-view" class="view-section">
+                <h2 class="mb-20">Relatórios</h2>
+                <div class="dashboard-content">
+                    <div class="glass" style="padding: 20px;">
+                        <h3>Serviços mais Vendidos</h3>
+                        <canvas id="servicesChart" style="max-height: 250px;"></canvas>
+                    </div>
+                    <div class="glass" style="padding: 20px;">
+                        <h3>Desempenho por Barbeiro</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <span>Carlos Silva</span>
+                                <span style="margin-left: auto;">R$ 5.400</span>
+                            </div>
+                            <div class="activity-item">
+                                <span>João Pedro</span>
+                                <span style="margin-left: auto;">R$ 4.200</span>
+                            </div>
+                            <div class="activity-item">
+                                <span>Mateus Santos</span>
+                                <span style="margin-left: auto;">R$ 3.800</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="settings-view" class="view-section">
+                <h2 class="mb-20">Configurações</h2>
+                <div class="glass" style="padding: 30px; max-width: 800px;">
+                    <form>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="form-group">
+                                <label>Nome da Barbearia</label>
+                                <input type="text" value="BarberPro Premium">
+                            </div>
+                            <div class="form-group">
+                                <label>CNPJ / CPF</label>
+                                <input type="text" value="00.000.000/0001-00">
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail de Contato</label>
+                                <input type="email" value="contato@barberpro.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input type="text" value="(11) 99999-9999">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Endereço</label>
+                            <input type="text" value="Av. Paulista, 1000 - São Paulo, SP">
+                        </div>
+                        <div style="display: flex; gap: 20px; margin-top: 20px;">
+                            <button type="button" class="btn-primary" style="width: auto; padding: 12px 30px;">Salvar Alterações</button>
+                            <button type="button" class="btn-action" style="padding: 12px 30px;">Resetar Padrões</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
